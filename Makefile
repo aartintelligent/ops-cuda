@@ -9,21 +9,21 @@ VERSION_FORMATTED = $(shell echo $(version) | tr '.' '-')
 
 build:
 	@$(foreach version,$(CUDA_VERSIONS),\
-		echo "Building $(IMAGE):$(version)-bookworm..."; \
+		echo "Building $(IMAGE):$(version)..."; \
 		docker build --build-arg CUDA_VERSION=$(VERSION_FORMATTED) \
-		--tag $(IMAGE):$(version)-bookworm .; \
+		--tag $(IMAGE):$(version) .; \
 	)
 
 push:
 	@$(foreach version,$(CUDA_VERSIONS),\
-		echo "Pushing $(IMAGE):$(version)-bookworm..."; \
-		docker push $(IMAGE):$(version)-bookworm; \
+		echo "Pushing $(IMAGE):$(version)..."; \
+		docker push $(IMAGE):$(version); \
 	)
 
 clean:
 	@$(foreach version,$(CUDA_VERSIONS),\
-		echo "Removing image $(IMAGE):$(version)-bookworm..."; \
-		docker rmi -f $(IMAGE):$(version)-bookworm || true; \
+		echo "Removing image $(IMAGE):$(version)..."; \
+		docker rmi -f $(IMAGE):$(version) || true; \
 	)
 
 .PHONY: build push clean
